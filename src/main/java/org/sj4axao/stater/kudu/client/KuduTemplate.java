@@ -6,43 +6,35 @@ import org.sj4axao.stater.kudu.config.KuduProperties;
 import java.util.List;
 
 public interface KuduTemplate {
-
     KuduProperties getProperties();
 
     long getId();
 
     List<String> getTablesList();
 
-    KuduTable getTable(String tableName)  throws KuduException;
+    KuduTable getTable(String paramString) throws KuduException;
 
-    /**
-     * 获取主键列list,名称为大写
-     * @param tableName 表名
-     */
-    List<String> getKeyColumns(String tableName) throws KuduException;
-    //--------------------- return Operation 用于批量操作(apply) -------------
-    Insert createInsert(String table, Object data) throws KuduException;
+    List<String> getKeyColumns(String paramString) throws KuduException;
 
-    Update createUpdate(String table, Object data) throws KuduException;
+    Insert createInsert(String paramString, Object paramObject) throws KuduException;
 
-    Delete createDelete(String table, Object data) throws KuduException;
+    Update createUpdate(String paramString, Object paramObject) throws KuduException;
 
-    Upsert createUpsert(String table, Object data) throws KuduException;
+    Delete createDelete(String paramString, Object paramObject) throws KuduException;
 
-    void apply(List<Operation> operations) throws KuduException;
+    Upsert createUpsert(String paramString, Object paramObject) throws KuduException;
 
-    List<OperationResponse> apply(List<Operation> operations,int flushSize) throws KuduException;
-    void apply(Operation operation) throws KuduException;
+    void apply(List<Operation> paramList) throws KuduException;
 
-    //---------------- 单条操作 ----------------
+    List<OperationResponse> apply(List<Operation> paramList, int paramInt) throws KuduException;
 
-    void delete(String table, Object data) throws KuduException;
-    void insert(String table, Object data) throws KuduException;
-    void update(String table, Object data) throws KuduException;
-    void upsert(String table, Object data) throws KuduException;
+    void apply(Operation paramOperation) throws KuduException;
 
+    void delete(String paramString, Object paramObject) throws KuduException;
 
+    void insert(String paramString, Object paramObject) throws KuduException;
 
-    // todo scan !!!
-    // todo create/modify/delete table
+    void update(String paramString, Object paramObject) throws KuduException;
+
+    void upsert(String paramString, Object paramObject) throws KuduException;
 }
